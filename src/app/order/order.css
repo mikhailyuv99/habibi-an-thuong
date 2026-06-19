@@ -438,6 +438,17 @@
   padding: 0 1.25rem 1.5rem;
 }
 
+.habibi-order-confirm__error {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #7a2e2e;
+  background: rgba(122, 46, 46, 0.08);
+  border: 1px solid rgba(122, 46, 46, 0.2);
+  border-radius: 2px;
+}
+
 .habibi-order-success {
   max-width: 28rem;
   margin: 0 auto;

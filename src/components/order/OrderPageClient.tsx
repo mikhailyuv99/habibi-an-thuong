@@ -14,11 +14,8 @@ import {
 } from "@/lib/order-storage";
 import {
   PICKUP_OPTIONS,
-  buildOrderWhatsAppMessage,
-  buildOrderWhatsAppUrl,
   cartLinesFromMap,
   cartSubtotal,
-  openOrderWhatsApp,
   type PickupTime,
 } from "@/lib/order-whatsapp";
 
@@ -98,6 +95,8 @@ export function OrderPageClient() {
   const [step, setStep] = useState<Step>("menu");
   const [pickup, setPickup] = useState<PickupTime>("ASAP");
   const [activeCategory, setActiveCategory] = useState(ORDER_MENU[0]?.id ?? "");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = loadOrderCustomer();
@@ -142,13 +141,33 @@ export function OrderPageClient() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function sendOrder() {
-    if (!customer || itemCount === 0) return;
-    const message = buildOrderWhatsAppMessage(customer, cart, pickup);
-    const url = buildOrderWhatsAppUrl(message);
-    openOrderWhatsApp(url);
-    setStep("success");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  async function sendOrder() {
+    if (!customer || itemCount === 0 || sending) return;
+    setSending(true);
+    setSendError(null);
+
+    try {
+      const response = await fetch("/api/send-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customer, cart, pickup }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        throw new Error(data.error ?? "Could not send your order. Please try again.");
+      }
+
+      setStep("success");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setSendError(
+        error instanceof Error ? error.message : "Could not send your order. Please try again.",
+      );
+    } finally {
+      setSending(false);
+    }
   }
 
   function orderAgain() {
@@ -246,9 +265,15 @@ export function OrderPageClient() {
           </section>
 
           <div className="habibi-order-confirm__actions">
+            {sendError && (
+              <p className="habibi-order-confirm__error" role="alert">
+                {sendError}
+              </p>
+            )}
             <button
               type="button"
               className="habibi-order-btn habibi-order-btn--ghost"
+              disabled={sending}
               onClick={() => setStep("menu")}
             >
               Back to menu
@@ -256,9 +281,10 @@ export function OrderPageClient() {
             <button
               type="button"
               className="habibi-order-btn habibi-order-btn--primary"
+              disabled={sending}
               onClick={sendOrder}
             >
-              Confirm &amp; send on WhatsApp
+              {sending ? "Sending order…" : "Confirm order"}
             </button>
           </div>
         </main>
