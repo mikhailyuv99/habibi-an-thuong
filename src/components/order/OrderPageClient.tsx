@@ -351,6 +351,14 @@ export function OrderPageClient() {
             <p className="habibi-order-cart-total">
               {o.subtotal} <strong>{formatOrderPriceDisplay(subtotal)}</strong>
             </p>
+            <button
+              type="button"
+              className="habibi-order-btn habibi-order-btn--secondary habibi-order-confirm__add-more"
+              disabled={sending}
+              onClick={() => setStep("menu")}
+            >
+              {o.addMoreItems}
+            </button>
           </section>
 
           <div className="habibi-order-confirm__actions">
@@ -359,14 +367,6 @@ export function OrderPageClient() {
                 {sendError}
               </p>
             )}
-            <button
-              type="button"
-              className="habibi-order-btn habibi-order-btn--ghost"
-              disabled={sending}
-              onClick={() => setStep("menu")}
-            >
-              {o.backToMenu}
-            </button>
             <button
               type="button"
               className="habibi-order-btn habibi-order-btn--primary"
@@ -459,6 +459,7 @@ export function OrderPageClient() {
 
       <div className="habibi-order-layout">
         <div className="habibi-order-menu">
+          <div className="habibi-order-cats-wrap">
           <nav className="habibi-order-cats" aria-label={o.menuCategories}>
             {orderMenu.map((cat) => (
               <a
@@ -471,6 +472,7 @@ export function OrderPageClient() {
               </a>
             ))}
           </nav>
+          </div>
 
           {orderMenu.map((cat) => (
             <section
