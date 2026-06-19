@@ -1,4 +1,4 @@
-/* Habibi Direct — /order only. Does not modify habibi.css. */
+/* Habibi Direct — /order only. Mobile-first. */
 
 .habibi-order {
   min-height: 100svh;
@@ -6,46 +6,50 @@
   color: #4a634d;
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(6.25rem + env(safe-area-inset-bottom, 0px));
 }
 
 .habibi-order--loading {
   min-height: 100svh;
 }
 
+/* —— Header —— */
 .habibi-order-header {
   text-align: center;
-  padding: 1.5rem 1.25rem 1rem;
+  padding: 1.1rem 1rem 0.9rem;
   border-bottom: 1px solid rgba(74, 99, 77, 0.12);
   background: #f9f4e8;
 }
 
 .habibi-order-header__logo {
   width: auto;
-  height: 3.25rem;
+  height: 2.75rem;
   margin-inline: auto;
 }
 
 .habibi-order-header__tagline {
-  margin: 0.85rem 0 0;
+  margin: 0.65rem 0 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.25rem, 4.5vw, 1.65rem);
+  font-size: 1.35rem;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.2;
   color: #4a634d;
 }
 
 .habibi-order-header__trust {
-  margin: 0.5rem 0 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  margin: 0.4rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
   color: rgba(74, 99, 77, 0.65);
 }
 
+/* —— Customer form —— */
 .habibi-order-ident {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 1.25rem;
+  margin: 0.85rem 1rem 0;
+  padding: 1rem;
+  background: #f9f4e8;
+  border: 1px solid rgba(74, 99, 77, 0.12);
+  border-radius: 4px;
 }
 
 .habibi-order-ident__form {
@@ -56,13 +60,14 @@
 .habibi-order-ident__hint {
   margin: 0.65rem 0 0;
   font-size: 0.8125rem;
+  line-height: 1.45;
   color: rgba(74, 99, 77, 0.6);
 }
 
 .habibi-order-field {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.35rem;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -72,15 +77,17 @@
 
 .habibi-order-field input {
   font: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: normal;
   text-transform: none;
-  padding: 0.65rem 0.75rem;
+  padding: 0.75rem 0.85rem;
   border: 1px solid rgba(74, 99, 77, 0.22);
-  border-radius: 2px;
+  border-radius: 3px;
   background: #fbf3e1;
   color: #4a634d;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .habibi-order-field input:focus {
@@ -88,36 +95,28 @@
   outline-offset: 1px;
 }
 
+/* —— Menu layout —— */
 .habibi-order-layout {
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 0 1.25rem 1.5rem;
+  padding: 0.85rem 1rem 1.25rem;
   display: grid;
-  gap: 1.25rem;
+  gap: 0.85rem;
 }
 
-@media (min-width: 900px) {
-  .habibi-order-layout {
-    grid-template-columns: minmax(0, 1fr) 17.5rem;
-    align-items: start;
-    gap: 1.5rem;
-  }
-
-  .habibi-order {
-    padding-bottom: 2rem;
-  }
+.habibi-order-menu {
+  min-width: 0;
 }
 
+/* —— Category nav —— */
 .habibi-order-cats {
   position: sticky;
   top: 0;
   z-index: 5;
   display: flex;
-  gap: 0.45rem;
+  gap: 0.5rem;
   overflow-x: auto;
-  padding: 0.75rem 0 1rem;
-  margin: 0 -0.25rem;
-  background: linear-gradient(180deg, #fbf3e1 78%, rgba(251, 243, 225, 0));
+  padding: 0.35rem 0 0.85rem;
+  margin: 0 -0.15rem;
+  background: linear-gradient(180deg, #fbf3e1 85%, rgba(251, 243, 225, 0));
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -128,16 +127,17 @@
 
 .habibi-order-cats__link {
   flex-shrink: 0;
-  padding: 0.45rem 0.75rem;
+  padding: 0.55rem 0.9rem;
   border: 1px solid rgba(74, 99, 77, 0.18);
   border-radius: 999px;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   text-decoration: none;
-  color: rgba(74, 99, 77, 0.75);
-  background: rgba(251, 243, 225, 0.9);
+  color: rgba(74, 99, 77, 0.8);
+  background: #f9f4e8;
+  white-space: nowrap;
 }
 
 .habibi-order-cats__link--active {
@@ -146,80 +146,94 @@
   color: #fbf3e1;
 }
 
+/* —— Menu sections —— */
 .habibi-order-category {
-  scroll-margin-top: 4.5rem;
-  padding-bottom: 1.5rem;
+  scroll-margin-top: 3.75rem;
+  padding-bottom: 1.25rem;
 }
 
 .habibi-order-category__title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.65rem;
   font-family: Georgia, serif;
-  font-size: 1.125rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: #4a634d;
 }
 
 .habibi-order-category__items {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.55rem;
 }
 
+/* —— Menu item card (stacked on mobile) —— */
 .habibi-order-item {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  background: #f9f4e8;
+  border: 1px solid rgba(74, 99, 77, 0.12);
+  border-radius: 4px;
+}
+
+.habibi-order-item__head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.85rem;
-  padding: 0.85rem 0.9rem;
-  background: #f9f4e8;
-  border: 1px solid rgba(74, 99, 77, 0.12);
-  border-radius: 3px;
-}
-
-.habibi-order-item__body {
-  min-width: 0;
+  gap: 0.75rem;
 }
 
 .habibi-order-item__name {
   margin: 0;
-  font-size: 0.9375rem;
+  flex: 1;
+  min-width: 0;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.3;
   color: #4a634d;
 }
 
-.habibi-order-item__desc {
-  margin: 0.3rem 0 0;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: rgba(74, 99, 77, 0.7);
+.habibi-order-item__price {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #4a634d;
+  white-space: nowrap;
 }
 
-.habibi-order-item__price {
-  margin: 0.45rem 0 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #4a634d;
+.habibi-order-item__desc {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgba(74, 99, 77, 0.68);
+}
+
+.habibi-order-item__actions {
+  display: flex;
+  align-items: center;
+  padding-top: 0.15rem;
 }
 
 .habibi-order-qty {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  flex-shrink: 0;
+  gap: 0.5rem;
 }
 
 .habibi-order-qty__btn {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: grid;
   place-items: center;
   border: 1px solid rgba(74, 99, 77, 0.25);
-  border-radius: 2px;
+  border-radius: 3px;
   background: #fbf3e1;
   color: #4a634d;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .habibi-order-qty__btn:disabled {
@@ -228,87 +242,33 @@
 }
 
 .habibi-order-qty__value {
-  min-width: 1.25rem;
+  min-width: 1.5rem;
   text-align: center;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
+/* —— Desktop sidebar cart —— */
 .habibi-order-cart {
   display: none;
 }
 
-@media (min-width: 900px) {
-  .habibi-order-cart {
-    display: block;
-    position: sticky;
-    top: 1rem;
-  }
-}
-
-.habibi-order-cart__panel {
-  padding: 1rem;
-  background: #f9f4e8;
-  border: 1px solid rgba(74, 99, 77, 0.14);
-  border-radius: 3px;
-}
-
-.habibi-order-cart__title {
-  margin: 0 0 0.75rem;
-  font-family: Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 400;
-}
-
-.habibi-order-cart__empty {
-  margin: 0 0 0.75rem;
-  font-size: 0.875rem;
-  color: rgba(74, 99, 77, 0.6);
-}
-
-.habibi-order-cart-list {
-  list-style: none;
-  margin: 0 0 0.75rem;
-  padding: 0;
-  display: grid;
-  gap: 0.45rem;
-}
-
-.habibi-order-cart-list__row {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
-  font-size: 0.8125rem;
-  line-height: 1.35;
-}
-
-.habibi-order-cart-total {
-  margin: 0 0 0.85rem;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.875rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(74, 99, 77, 0.12);
-}
-
-.habibi-order-cart-total strong {
-  font-size: 1rem;
-}
-
+/* —— Buttons —— */
 .habibi-order-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
-  padding: 0 1.1rem;
-  border-radius: 2px;
+  min-height: 2.85rem;
+  padding: 0 1.15rem;
+  border-radius: 3px;
   border: 1px solid transparent;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
+  touch-action: manipulation;
 }
 
 .habibi-order-btn:disabled {
@@ -326,6 +286,7 @@
   background: transparent;
   color: #4a634d;
   border-color: rgba(74, 99, 77, 0.35);
+  width: 100%;
 }
 
 .habibi-order-btn--ghost {
@@ -338,25 +299,20 @@
   width: 100%;
 }
 
+/* —— Mobile sticky cart bar —— */
 .habibi-order-cart-bar {
   position: fixed;
   inset-inline: 0;
   bottom: 0;
   z-index: 20;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
-  background: rgba(249, 244, 232, 0.96);
-  border-top: 1px solid rgba(74, 99, 77, 0.14);
-  backdrop-filter: blur(8px);
-}
-
-@media (min-width: 900px) {
-  .habibi-order-cart-bar {
-    display: none;
-  }
+  padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(249, 244, 232, 0.98);
+  border-top: 1px solid rgba(74, 99, 77, 0.16);
+  box-shadow: 0 -8px 24px rgba(20, 16, 12, 0.08);
 }
 
 .habibi-order-cart-bar__meta {
@@ -368,45 +324,46 @@
 
 .habibi-order-cart-bar__count {
   font-size: 0.6875rem;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(74, 99, 77, 0.65);
+  color: rgba(74, 99, 77, 0.6);
 }
 
 .habibi-order-cart-bar__total {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
 .habibi-order-cart-bar .habibi-order-btn {
-  flex-shrink: 0;
+  min-width: 8.5rem;
+  min-height: 3rem;
 }
 
+/* —— Confirm / panels —— */
 .habibi-order-panel {
-  max-width: 40rem;
-  margin: 0 auto 1rem;
-  padding: 1rem 1.25rem;
+  margin: 0 1rem 0.75rem;
+  padding: 1rem;
   background: #f9f4e8;
   border: 1px solid rgba(74, 99, 77, 0.12);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .habibi-order-panel__title {
   margin: 0 0 0.65rem;
   font-family: Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 400;
 }
 
 .habibi-order-confirm {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 0 0 2rem;
+  padding: 0 0 1.5rem;
 }
 
 .habibi-order-confirm__line {
   margin: 0;
   font-size: 0.9375rem;
+  line-height: 1.45;
 }
 
 .habibi-order-pickup {
@@ -416,14 +373,15 @@
 }
 
 .habibi-order-pickup__btn {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 1px solid rgba(74, 99, 77, 0.22);
-  border-radius: 2px;
+  border-radius: 3px;
   background: #fbf3e1;
   color: #4a634d;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .habibi-order-pickup__btn--active {
@@ -435,7 +393,12 @@
 .habibi-order-confirm__actions {
   display: grid;
   gap: 0.65rem;
-  padding: 0 1.25rem 1.5rem;
+  padding: 0 1rem 1.25rem;
+}
+
+.habibi-order-confirm__actions .habibi-order-btn--primary,
+.habibi-order-confirm__actions .habibi-order-btn--ghost {
+  width: 100%;
 }
 
 .habibi-order-confirm__error {
@@ -446,13 +409,63 @@
   color: #7a2e2e;
   background: rgba(122, 46, 46, 0.08);
   border: 1px solid rgba(122, 46, 46, 0.2);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
+.habibi-order-cart-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.habibi-order-cart-list__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.habibi-order-cart-total {
+  margin: 0 0 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(74, 99, 77, 0.12);
+}
+
+.habibi-order-cart-total strong {
+  font-size: 1.05rem;
+}
+
+.habibi-order-cart__panel {
+  padding: 1rem;
+  background: #f9f4e8;
+  border: 1px solid rgba(74, 99, 77, 0.14);
+  border-radius: 4px;
+}
+
+.habibi-order-cart__title {
+  margin: 0 0 0.75rem;
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.habibi-order-cart__empty {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: rgba(74, 99, 77, 0.6);
+}
+
+/* —— Success —— */
 .habibi-order-success {
   max-width: 28rem;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem;
+  padding: 2rem 1rem;
   text-align: center;
 }
 
@@ -468,7 +481,7 @@
 .habibi-order-success__title {
   margin: 0.65rem 0 0;
   font-family: Georgia, serif;
-  font-size: clamp(1.5rem, 5vw, 1.85rem);
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.2;
 }
@@ -483,4 +496,79 @@
 .habibi-order-success .habibi-order-btn {
   width: 100%;
   max-width: 16rem;
+}
+
+/* —— Desktop —— */
+@media (min-width: 900px) {
+  .habibi-order {
+    padding-bottom: 2rem;
+  }
+
+  .habibi-order-header {
+    padding: 1.5rem 1.25rem 1rem;
+  }
+
+  .habibi-order-header__logo {
+    height: 3.25rem;
+  }
+
+  .habibi-order-header__tagline {
+    font-size: clamp(1.25rem, 4.5vw, 1.65rem);
+  }
+
+  .habibi-order-ident {
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+
+  .habibi-order-layout {
+    max-width: 64rem;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 1fr) 17.5rem;
+    align-items: start;
+    gap: 1.5rem;
+    padding: 0 1.25rem 1.5rem;
+  }
+
+  .habibi-order-cart {
+    display: block;
+    position: sticky;
+    top: 1rem;
+  }
+
+  .habibi-order-cart-bar {
+    display: none;
+  }
+
+  .habibi-order-panel {
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  .habibi-order-confirm {
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  .habibi-order-item {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 1rem;
+  }
+
+  .habibi-order-item__head {
+    grid-column: 1;
+  }
+
+  .habibi-order-item__desc {
+    grid-column: 1;
+  }
+
+  .habibi-order-item__actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    padding-top: 0;
+  }
 }

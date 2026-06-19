@@ -70,18 +70,20 @@ function MenuItemCard({
 }) {
   return (
     <article className="habibi-order-item">
-      <div className="habibi-order-item__body">
+      <div className="habibi-order-item__head">
         <h3 className="habibi-order-item__name">{item.name}</h3>
-        {item.description && (
-          <p className="habibi-order-item__desc">{item.description}</p>
-        )}
         <p className="habibi-order-item__price">{formatOrderPriceDisplay(item.priceVnd)}</p>
       </div>
-      <QuantityControl
-        quantity={quantity}
-        disabled={!canOrder}
-        onChange={onQuantityChange}
-      />
+      {item.description && (
+        <p className="habibi-order-item__desc">{item.description}</p>
+      )}
+      <div className="habibi-order-item__actions">
+        <QuantityControl
+          quantity={quantity}
+          disabled={!canOrder}
+          onChange={onQuantityChange}
+        />
+      </div>
     </article>
   );
 }
