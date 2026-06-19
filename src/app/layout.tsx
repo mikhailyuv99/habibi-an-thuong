@@ -64,6 +64,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={fontVariables} style={themeStyle()}>
       <head>
         <link rel="stylesheet" href="/habibi.css" />
+        <link rel="preconnect" href="https://maps.google.com" />
+        <link rel="preconnect" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://maps.google.com" />
+        <link rel="preload" as="image" href="/brand/logo.png" />
+        <link rel="preload" as="image" href="/photos/maps/photo-22.jpg" />
         <LocalBusinessJsonLd />
       </head>
       <body className="antialiased" style={{ background: "#fbf3e1" }}>

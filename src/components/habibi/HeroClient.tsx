@@ -1,7 +1,7 @@
 "use client";
 
 import { client } from "@/lib/client";
-import { GOOGLE_REVIEWS_URL } from "@/lib/google-reviews";
+import { GOOGLE_WRITE_REVIEW_URL } from "@/lib/google-reviews";
 import { social } from "@/lib/social";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { InstagramIcon, SocialLink, WhatsAppIcon, ZaloIcon } from "./SocialIcons";
@@ -35,7 +35,7 @@ export function HeroClient() {
           <span>{t.hero.meta(rating, reviewCount)}</span>
         </p>
         <a
-          href={GOOGLE_REVIEWS_URL}
+          href={GOOGLE_WRITE_REVIEW_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="habibi-hero__review-link"

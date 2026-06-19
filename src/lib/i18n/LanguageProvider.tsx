@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { translations, type Lang } from "./translations";
+import { translations, type Lang, LANGS } from "./translations";
 
 const STORAGE_KEY = "habibi-lang";
 
@@ -26,7 +26,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "en" || stored === "ru") setLangState(stored);
+    if (stored && LANGS.includes(stored as Lang)) setLangState(stored as Lang);
   }, []);
 
   const setLang = useCallback((next: Lang) => {

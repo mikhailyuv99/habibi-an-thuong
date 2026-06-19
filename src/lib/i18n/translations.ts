@@ -1,4 +1,6 @@
-export type Lang = "en" | "ru";
+export type Lang = "en" | "ru" | "vi" | "fr";
+
+const LANGS: Lang[] = ["en", "ru", "vi", "fr"];
 
 export const translations = {
   en: {
@@ -145,6 +147,152 @@ export const translations = {
       ok: "OK",
     },
   },
+  vi: {
+    nav: {
+      home: "Trang chủ",
+      about: "Giới thiệu",
+      menu: "Thực đơn",
+      findUs: "Chỉ đường",
+      reserve: "Đặt bàn",
+    },
+    hero: {
+      kicker: "Ẩm thực Slavic & Ả Rập",
+      title: "Habibi",
+      meta: (rating: string, reviews: string) =>
+        `${rating} trên Google · ${reviews} đánh giá · Halal`,
+      leaveReview: "Viết đánh giá trên Google",
+      reserve: "Đặt bàn",
+      menu: "Thực đơn",
+      about: "Giới thiệu",
+      findUs: "Chỉ đường",
+    },
+    about: {
+      eyebrow: "An Thượng 26 · Đà Nẵng",
+      title: "Về nhà hàng",
+      lead: "Khinkali, shashlik và mezze dưới ánh neon trên phố An Thượng 26",
+      p1: "Habibi có mặt trên con phố này từ 2022 — nơi khách Nga, khách Ả Rập quen mặt và người Đà Nẵng thường ngồi chung một bàn gỗ hơn bạn nghĩ.",
+      p2: "Thực đơn chia rõ hai phần. Slavic và Gruzia: pelmeni, borscht, khinkali, chebureki, salad Olivier, ớt nhồi. Ả Rập: shashlik cừu trên lửa hồng, mandi gà, hummus và mutabal với bánh pita nhà làm. Tất cả đều halal.",
+      p3: "Phần Slavic do một phụ nữ người Moldova phụ trách — Liudmyla Topor viết rằng ăn ở đây giống như tìm lại hương vị nhà. theAndrei71 nói thẳng: ngon, phục vụ nhanh, nhân viên thân thiện với khách nói tiếng Nga.",
+      p4: "Trong nhà có tranh tường vẽ tay — rừng bạch dư một bên, sa mạc và thánh đường bên kia. Đa số ngồi ngoài sân có đèn neon sau khi trời tối. Don José nhắc đến khói lò tandoor; lò nằm ngay trong phòng. Muốn yên thì xin bàn trong nhà.",
+      p5: "Mở cửa hàng ngày, đóng cửa khoảng 23:30 theo Google Maps. Gọi trước nếu bạn đến sớm.",
+      reviews: "Khách nói gì",
+    },
+    menu: {
+      eyebrow: "Halal · Slavic & Ả Rập",
+      title: "Thực đơn",
+      lead: "Ảnh bảng menu trong nhà hàng. Giá tính theo nghìn VND (K). Chọn mục để xem bảng.",
+      groupToStart: "Khai vị",
+      groupSlavic: "Slavic",
+      groupArabic: "Ả Rập",
+      groupQuick: "Ăn nhanh & đồ uống",
+      catAppetizers: "Khai vị",
+      catColdPlates: "Món lạnh",
+      catSalads: "Salad & món phụ",
+      catSoups: "Súp",
+      catGeorgian: "Món chính Gruzia",
+      catSlavicFood: "Món Slavic",
+      catSlavicSnacks: "Đồ ăn vặt Slavic",
+      catMandi: "Mandi & Kabsa",
+      catArabicGrill: "Nướng Ả Rập",
+      catKebabs: "Kebab & nướng",
+      catWraps: "Cuốn & ăn nhanh",
+      catDrinks: "Đồ uống",
+    },
+    maps: {
+      title: "Chỉ đường",
+      gps: "Mở GPS",
+      formTitle: "Gửi tin nhắn",
+      name: "Tên của bạn",
+      phone: "SĐT hoặc WhatsApp",
+      message: "Tin nhắn",
+      send: "Gửi qua WhatsApp",
+    },
+    footer: {
+      legalPrices: (year: number, name: string, phone: string) =>
+        `© ${year} ${name}. Giá và giờ mở cửa có thể thay đổi. Gọi ${phone} để xác nhận.`,
+      legalCookies:
+        "Trang web dùng cookies để lưu tùy chọn. Tiếp tục nghĩa là bạn đồng ý.",
+      credit: "Website bởi",
+    },
+    cookie: {
+      text: "Chúng tôi dùng cookies để nhớ tùy chọn của bạn. Không theo dõi quảng cáo.",
+      ok: "OK",
+    },
+  },
+  fr: {
+    nav: {
+      home: "Accueil",
+      about: "À propos",
+      menu: "Menu",
+      findUs: "Nous trouver",
+      reserve: "Réserver",
+    },
+    hero: {
+      kicker: "Cuisine slave & arabe",
+      title: "Habibi",
+      meta: (rating: string, reviews: string) =>
+        `${rating} sur Google · ${reviews} avis · Halal`,
+      leaveReview: "Laisser un avis sur Google",
+      reserve: "Réserver une table",
+      menu: "Menu",
+      about: "À propos",
+      findUs: "Nous trouver",
+    },
+    about: {
+      eyebrow: "An Thượng 26 · Da Nang",
+      title: "Notre restaurant",
+      lead: "Khinkali, shashlik et mezze sous le néon d'An Thượng 26",
+      p1: "Habibi est sur cette rue depuis 2022 — un coin où touristes russophones, habitués arabes et locaux de Da Nang se retrouvent souvent à la même table en bois.",
+      p2: "La carte est volontairement en deux parties. Slave et géorgienne : pelmeni, bortsch, khinkali, chebureki, salade Olivier, poivrons farcis. Grill et riz du Levant : agneau au feu de bois, mandi au poulet, hummus et mutabal avec pain maison. Tout est halal.",
+      p3: "Le côté slave est porté par une Moldave qui surveille le pass — Liudmyla Topor a écrit qu'ici on retrouve des saveurs de maison. theAndrei71 l'a dit clairement : bon, service rapide, équipe accueillante pour les russophones.",
+      p4: "À l'intérieur, fresques peintes à la main — forêt de bouleaux d'un côté, désert et mosquée de l'autre. La plupart mangent dehors sur la terrasse au néon après la nuit tombée. Don José mentionnait la fumée du tandoor ; le four fait partie de la salle. Demandez une table à l'intérieur si ça gêne.",
+      p5: "Ouvert tous les jours, fermeture vers 23h30 sur Google Maps. Appelez avant si vous venez tôt.",
+      reviews: "Ce que disent les clients",
+    },
+    menu: {
+      eyebrow: "Halal · Slave & arabe",
+      title: "Menu",
+      lead: "Photos des ardoises du restaurant. Prix en milliers de VND (K). Choisissez une catégorie.",
+      groupToStart: "Pour commencer",
+      groupSlavic: "Slave",
+      groupArabic: "Arabe",
+      groupQuick: "Rapide & boissons",
+      catAppetizers: "Entrées",
+      catColdPlates: "Plats froids",
+      catSalads: "Salades & accompagnements",
+      catSoups: "Soupes",
+      catGeorgian: "Plats géorgiens",
+      catSlavicFood: "Plats slaves",
+      catSlavicSnacks: "En-cas slaves",
+      catMandi: "Mandi & Kabsa",
+      catArabicGrill: "Grill arabe",
+      catKebabs: "Kebabs & grill",
+      catWraps: "Wraps & bouchées",
+      catDrinks: "Boissons",
+    },
+    maps: {
+      title: "Nous trouver",
+      gps: "Ouvrir le GPS",
+      formTitle: "Envoyer un message",
+      name: "Votre nom",
+      phone: "Téléphone ou WhatsApp",
+      message: "Message",
+      send: "Envoyer via WhatsApp",
+    },
+    footer: {
+      legalPrices: (year: number, name: string, phone: string) =>
+        `© ${year} ${name}. Prix et horaires susceptibles de changer. Appelez le ${phone} pour confirmer.`,
+      legalCookies:
+        "Ce site utilise des cookies pour vos préférences. En continuant, vous acceptez.",
+      credit: "Site par",
+    },
+    cookie: {
+      text: "Nous utilisons des cookies pour mémoriser vos préférences. Pas de suivi publicitaire.",
+      ok: "OK",
+    },
+  },
 } as const;
+
+export { LANGS };
 
 export type TranslationKey = typeof translations.en;

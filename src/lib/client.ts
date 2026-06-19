@@ -38,6 +38,8 @@ export type ClientData = {
   phone: string;
   website: string | null;
   maps_url: string;
+  google_feature_id?: string;
+  google_maps_cid?: string;
   hours: string[] | null;
   hours_note: string | null;
   reserve_url: string | null;

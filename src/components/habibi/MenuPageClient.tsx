@@ -1,6 +1,14 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type Ref,
+} from "react";
 import { MENU_GROUPS, MENU_CATEGORIES, type MenuCategory } from "@/data/menu-categories";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
@@ -45,13 +53,43 @@ function boardsFor(category: MenuCategory): string[] {
 }
 
 export function MenuSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const categories = useMemo(() => MENU_CATEGORIES, []);
   const [activeId, setActiveId] = useState(categories[0]?.id ?? "appetizers");
+  const [viewerLayout, setViewerLayout] = useState<CSSProperties>({});
+  const catsRef = useRef<HTMLElement>(null);
+  const firstBtnRef = useRef<HTMLButtonElement>(null);
+  const lastBtnRef = useRef<HTMLButtonElement>(null);
   const viewerRef = useRef<HTMLElement>(null);
   const active = categories.find((c) => c.id === activeId) ?? categories[0];
   const activeBoards = active ? boardsFor(active) : [];
   const activeLabel = active ? t.menu[CAT_LABELS[active.id] ?? "catAppetizers"] : "";
+
+  const syncViewerLayout = useCallback(() => {
+    if (typeof window === "undefined" || window.innerWidth < 768) {
+      setViewerLayout({});
+      return;
+    }
+    const nav = catsRef.current;
+    const first = firstBtnRef.current;
+    const last = lastBtnRef.current;
+    if (!nav || !first || !last) return;
+
+    const navTop = nav.getBoundingClientRect().top;
+    const firstTop = first.getBoundingClientRect().top - navTop;
+    const lastBottom = last.getBoundingClientRect().bottom - navTop;
+
+    setViewerLayout({
+      marginTop: `${firstTop}px`,
+      height: `${lastBottom - firstTop}px`,
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    syncViewerLayout();
+    window.addEventListener("resize", syncViewerLayout);
+    return () => window.removeEventListener("resize", syncViewerLayout);
+  }, [syncViewerLayout, lang, activeId]);
 
   const scrollToViewer = useCallback(() => {
     if (typeof window === "undefined" || window.innerWidth >= 768) return;
@@ -80,7 +118,7 @@ export function MenuSection() {
         </header>
 
         <div className="habibi-menu-browser">
-          <nav className="habibi-menu-cats" aria-label="Menu categories">
+          <nav ref={catsRef} className="habibi-menu-cats" aria-label="Menu categories">
             {MENU_GROUPS.map((group) => {
               const groupKey = GROUP_LABELS[group.label];
               const groupLabel = groupKey ? t.menu[groupKey] : group.label;
@@ -95,6 +133,13 @@ export function MenuSection() {
                           label={t.menu[CAT_LABELS[cat.id] ?? "catAppetizers"]}
                           active={cat.id === activeId}
                           onSelect={() => selectCategory(cat.id)}
+                          buttonRef={
+                            cat.id === "appetizers"
+                              ? firstBtnRef
+                              : cat.id === "drinks"
+                                ? lastBtnRef
+                                : undefined
+                          }
                         />
                       </li>
                     ))}
@@ -110,6 +155,7 @@ export function MenuSection() {
               className="habibi-menu-viewer"
               id="menu-viewer"
               aria-labelledby="menu-viewer-title"
+              style={viewerLayout}
             >
               <figcaption className="habibi-menu-viewer__title" id="menu-viewer-title">
                 {activeLabel}
@@ -147,14 +193,17 @@ function CategoryButton({
   label,
   active,
   onSelect,
+  buttonRef,
 }: {
   category: MenuCategory;
   label: string;
   active: boolean;
   onSelect: () => void;
+  buttonRef?: Ref<HTMLButtonElement>;
 }) {
   return (
     <button
+      ref={buttonRef}
       type="button"
       className={`habibi-menu-cats__btn${active ? " habibi-menu-cats__btn--active" : ""}`}
       onClick={onSelect}

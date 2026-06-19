@@ -6,6 +6,8 @@ import type { Lang } from "@/lib/i18n/translations";
 
 const OPTIONS: { value: Lang; label: string }[] = [
   { value: "en", label: "English" },
+  { value: "vi", label: "Tiếng Việt" },
+  { value: "fr", label: "Français" },
   { value: "ru", label: "Русский" },
 ];
 
