@@ -50,6 +50,24 @@
   background: #f9f4e8;
   border: 1px solid rgba(74, 99, 77, 0.12);
   border-radius: 4px;
+  scroll-margin-top: 0.75rem;
+}
+
+.habibi-order-ident--alert {
+  border-color: rgba(166, 61, 61, 0.45);
+  box-shadow: 0 0 0 1px rgba(166, 61, 61, 0.12);
+}
+
+.habibi-order-ident__required {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgba(74, 99, 77, 0.72);
+}
+
+.habibi-order-ident__required strong {
+  color: #8b3a3a;
+  font-weight: 700;
 }
 
 .habibi-order-ident__form {
@@ -93,6 +111,24 @@
 .habibi-order-field input:focus {
   outline: 2px solid rgba(74, 99, 77, 0.35);
   outline-offset: 1px;
+}
+
+.habibi-order-field--error input {
+  border-color: #a63d3d;
+  background: rgba(166, 61, 61, 0.05);
+}
+
+.habibi-order-field--error input:focus {
+  outline-color: rgba(166, 61, 61, 0.45);
+}
+
+.habibi-order-field__error {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #a63d3d;
+  line-height: 1.35;
 }
 
 /* —— Menu layout —— */

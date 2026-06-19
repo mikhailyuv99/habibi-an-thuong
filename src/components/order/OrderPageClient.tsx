@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ORDER_MENU,
   formatOrderPriceDisplay,
@@ -23,12 +23,12 @@ type Step = "menu" | "confirm" | "success";
 
 function QuantityControl({
   quantity,
-  disabled,
-  onChange,
+  onIncrease,
+  onDecrease,
 }: {
   quantity: number;
-  disabled?: boolean;
-  onChange: (next: number) => void;
+  onIncrease: () => void;
+  onDecrease: () => void;
 }) {
   return (
     <div className="habibi-order-qty">
@@ -36,8 +36,8 @@ function QuantityControl({
         type="button"
         className="habibi-order-qty__btn"
         aria-label="Decrease quantity"
-        disabled={disabled || quantity === 0}
-        onClick={() => onChange(Math.max(0, quantity - 1))}
+        disabled={quantity === 0}
+        onClick={onDecrease}
       >
         −
       </button>
@@ -48,8 +48,7 @@ function QuantityControl({
         type="button"
         className="habibi-order-qty__btn"
         aria-label="Increase quantity"
-        disabled={disabled}
-        onClick={() => onChange(quantity + 1)}
+        onClick={onIncrease}
       >
         +
       </button>
@@ -60,13 +59,13 @@ function QuantityControl({
 function MenuItemCard({
   item,
   quantity,
-  canOrder,
-  onQuantityChange,
+  onIncrease,
+  onDecrease,
 }: {
   item: OrderMenuItem;
   quantity: number;
-  canOrder: boolean;
-  onQuantityChange: (next: number) => void;
+  onIncrease: () => void;
+  onDecrease: () => void;
 }) {
   return (
     <article className="habibi-order-item">
@@ -80,8 +79,8 @@ function MenuItemCard({
       <div className="habibi-order-item__actions">
         <QuantityControl
           quantity={quantity}
-          disabled={!canOrder}
-          onChange={onQuantityChange}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
         />
       </div>
     </article>
@@ -99,6 +98,9 @@ export function OrderPageClient() {
   const [activeCategory, setActiveCategory] = useState(ORDER_MENU[0]?.id ?? "");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [identErrors, setIdentErrors] = useState({ name: false, phone: false });
+  const identRef = useRef<HTMLElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const saved = loadOrderCustomer();
@@ -127,18 +129,62 @@ export function OrderPageClient() {
     });
   }, []);
 
+  const ensureCustomerForOrder = useCallback((): boolean => {
+    if (customer?.firstName && customer?.phone) return true;
+
+    const firstName = draftName.trim();
+    const phone = draftPhone.trim();
+    const nameMissing = !firstName;
+    const phoneMissing = !phone;
+
+    if (nameMissing || phoneMissing) {
+      setIdentErrors({ name: nameMissing, phone: phoneMissing });
+      identRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (nameMissing) {
+        nameInputRef.current?.focus();
+      }
+      return false;
+    }
+
+    const next = { firstName, phone };
+    saveOrderCustomer(next);
+    setCustomer(next);
+    setIdentErrors({ name: false, phone: false });
+    return true;
+  }, [customer, draftName, draftPhone]);
+
+  const increaseItem = useCallback(
+    (id: string) => {
+      if (!ensureCustomerForOrder()) return;
+      setItemQuantity(id, (cart[id] ?? 0) + 1);
+    },
+    [cart, ensureCustomerForOrder, setItemQuantity],
+  );
+
+  const decreaseItem = useCallback(
+    (id: string) => {
+      setItemQuantity(id, Math.max(0, (cart[id] ?? 0) - 1));
+    },
+    [cart, setItemQuantity],
+  );
+
   function saveCustomer(e: React.FormEvent) {
     e.preventDefault();
     const firstName = draftName.trim();
     const phone = draftPhone.trim();
-    if (!firstName || !phone) return;
+    if (!firstName || !phone) {
+      setIdentErrors({ name: !firstName, phone: !phone });
+      return;
+    }
     const next = { firstName, phone };
     saveOrderCustomer(next);
     setCustomer(next);
+    setIdentErrors({ name: false, phone: false });
   }
 
   function openConfirm() {
-    if (!canOrder || itemCount === 0) return;
+    if (itemCount === 0) return;
+    if (!ensureCustomerForOrder()) return;
     setStep("confirm");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -311,41 +357,77 @@ export function OrderPageClient() {
         </p>
       </header>
 
-      <section className="habibi-order-ident" aria-labelledby="order-ident-heading">
+      <section
+        ref={identRef}
+        id="order-ident"
+        className={`habibi-order-ident${identErrors.name || identErrors.phone ? " habibi-order-ident--alert" : ""}`}
+        aria-labelledby="order-ident-heading"
+      >
         <h2 id="order-ident-heading" className="habibi-order-panel__title">
           {canOrder ? "Your details" : "Before you order"}
         </h2>
+        {!canOrder && (
+          <p className="habibi-order-ident__required">
+            First name and phone are <strong>required</strong> before you can add items.
+          </p>
+        )}
         <form className="habibi-order-ident__form" onSubmit={saveCustomer}>
-          <label className="habibi-order-field">
-            <span>First name</span>
+          <label
+            className={`habibi-order-field${identErrors.name ? " habibi-order-field--error" : ""}`}
+          >
+            <span>First name *</span>
             <input
+              ref={nameInputRef}
               type="text"
               name="firstName"
               autoComplete="given-name"
               required
+              aria-invalid={identErrors.name}
+              aria-describedby={identErrors.name ? "order-name-error" : undefined}
               value={draftName}
-              onChange={(e) => setDraftName(e.target.value)}
+              onChange={(e) => {
+                setDraftName(e.target.value);
+                if (e.target.value.trim()) {
+                  setIdentErrors((prev) => ({ ...prev, name: false }));
+                }
+              }}
             />
+            {identErrors.name && (
+              <span id="order-name-error" className="habibi-order-field__error" role="alert">
+                Enter your first name to order.
+              </span>
+            )}
           </label>
-          <label className="habibi-order-field">
-            <span>Phone (WhatsApp preferred)</span>
+          <label
+            className={`habibi-order-field${identErrors.phone ? " habibi-order-field--error" : ""}`}
+          >
+            <span>Phone (WhatsApp preferred) *</span>
             <input
               type="tel"
               name="phone"
               autoComplete="tel"
               inputMode="tel"
               required
+              aria-invalid={identErrors.phone}
+              aria-describedby={identErrors.phone ? "order-phone-error" : undefined}
               value={draftPhone}
-              onChange={(e) => setDraftPhone(e.target.value)}
+              onChange={(e) => {
+                setDraftPhone(e.target.value);
+                if (e.target.value.trim()) {
+                  setIdentErrors((prev) => ({ ...prev, phone: false }));
+                }
+              }}
             />
+            {identErrors.phone && (
+              <span id="order-phone-error" className="habibi-order-field__error" role="alert">
+                Enter your phone so we can confirm your order.
+              </span>
+            )}
           </label>
           <button type="submit" className="habibi-order-btn habibi-order-btn--secondary">
-            {canOrder ? "Update details" : "Continue to menu"}
+            {canOrder ? "Update details" : "Save & start ordering"}
           </button>
         </form>
-        {!canOrder && (
-          <p className="habibi-order-ident__hint">Add your name and phone to start ordering.</p>
-        )}
       </section>
 
       <div className="habibi-order-layout">
@@ -377,8 +459,8 @@ export function OrderPageClient() {
                     key={item.id}
                     item={item}
                     quantity={cart[item.id] ?? 0}
-                    canOrder={canOrder}
-                    onQuantityChange={(next) => setItemQuantity(item.id, next)}
+                    onIncrease={() => increaseItem(item.id)}
+                    onDecrease={() => decreaseItem(item.id)}
                   />
                 ))}
               </div>
@@ -410,7 +492,7 @@ export function OrderPageClient() {
             <button
               type="button"
               className="habibi-order-btn habibi-order-btn--primary habibi-order-cart__cta"
-              disabled={!canOrder || itemCount === 0}
+              disabled={itemCount === 0}
               onClick={openConfirm}
             >
               Place order
@@ -428,7 +510,7 @@ export function OrderPageClient() {
           <button
             type="button"
             className="habibi-order-btn habibi-order-btn--primary"
-            disabled={!canOrder}
+            disabled={itemCount === 0}
             onClick={openConfirm}
           >
             Place order
