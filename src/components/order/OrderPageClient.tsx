@@ -1,7 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { OrderPageHeader } from "@/components/order/OrderPageHeader";
+import { OrderSocialLinks } from "@/components/order/OrderSocialLinks";
 import {
   ORDER_MENU,
   formatOrderPriceDisplay,
@@ -69,17 +72,19 @@ function MenuItemCard({
 }) {
   return (
     <article className="habibi-order-item">
-      <div className="habibi-order-item__media">
-        <Image
-          src={item.image}
-          alt=""
-          width={88}
-          height={88}
-          sizes="88px"
-          className="habibi-order-item__img"
-          loading="lazy"
-        />
-      </div>
+      {item.image ? (
+        <div className="habibi-order-item__media">
+          <Image
+            src={item.image}
+            alt={item.name}
+            width={88}
+            height={88}
+            sizes="88px"
+            className="habibi-order-item__img"
+            loading="lazy"
+          />
+        </div>
+      ) : null}
       <div className="habibi-order-item__content">
         <div className="habibi-order-item__head">
           <h3 className="habibi-order-item__name">{item.name}</h3>
@@ -245,25 +250,25 @@ export function OrderPageClient() {
   if (step === "success") {
     return (
       <div className="habibi-order">
-        <header className="habibi-order-header">
-          <Image
-            src="/brand/logo.png"
-            alt="Habibi Restaurant"
-            width={300}
-            height={300}
-            priority
-            className="habibi-order-header__logo"
-          />
-        </header>
+        <OrderPageHeader showSocial={false} />
         <main className="habibi-order-success">
           <p className="habibi-order-success__eyebrow">Habibi Direct</p>
           <h1 className="habibi-order-success__title">Your order has been sent!</h1>
           <p className="habibi-order-success__lead">
             The team has your order and will confirm shortly.
           </p>
-          <button type="button" className="habibi-order-btn habibi-order-btn--primary" onClick={orderAgain}>
-            Order again
-          </button>
+          <p className="habibi-order-success__social-lead">
+            Thanks for ordering — follow us on social media for updates and daily specials.
+          </p>
+          <OrderSocialLinks className="habibi-order-social--success" />
+          <div className="habibi-order-success__actions">
+            <Link href="/" className="habibi-order-btn habibi-order-btn--primary">
+              Visit our website
+            </Link>
+            <button type="button" className="habibi-order-btn habibi-order-btn--ghost" onClick={orderAgain}>
+              Order again
+            </button>
+          </div>
         </main>
       </div>
     );
@@ -272,17 +277,7 @@ export function OrderPageClient() {
   if (step === "confirm") {
     return (
       <div className="habibi-order">
-        <header className="habibi-order-header">
-          <Image
-            src="/brand/logo.png"
-            alt="Habibi Restaurant"
-            width={300}
-            height={300}
-            priority
-            className="habibi-order-header__logo"
-          />
-          <p className="habibi-order-header__tagline">Review your order</p>
-        </header>
+        <OrderPageHeader tagline="Review your order" taglineAs="p" />
 
         <main className="habibi-order-confirm">
           <section className="habibi-order-panel">
@@ -355,20 +350,10 @@ export function OrderPageClient() {
 
   return (
     <div className="habibi-order">
-      <header className="habibi-order-header">
-        <Image
-          src="/brand/logo.png"
-          alt="Habibi Restaurant"
-          width={300}
-          height={300}
-          priority
-          className="habibi-order-header__logo"
-        />
-        <h1 className="habibi-order-header__tagline">Order directly &amp; skip the queue</h1>
-        <p className="habibi-order-header__trust">
-          No app needed · Pickup only · Pay on arrival
-        </p>
-      </header>
+      <OrderPageHeader
+        tagline="Order directly & skip the queue"
+        trust="No app needed · Pickup only · Pay on arrival"
+      />
 
       <section
         ref={identRef}

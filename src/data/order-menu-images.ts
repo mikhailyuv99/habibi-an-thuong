@@ -1,34 +1,39 @@
-/** Real Habibi photography for order menu tiles — owner, maps, and telegram dish shots. */
+/**
+ * Order menu thumbnails — each path must match the named dish exactly.
+ * Sources: owner/telegram photography, verified table shots, and crops from menu-hd boards.
+ */
+
+const DISH = (id: string) => `/photos/dishes/${id}.jpg`;
 
 export const ORDER_ITEM_IMAGES: Record<string, string> = {
   // Appetizers
   olivier: "/photos/owner/olivier-salad.jpg",
-  hummus: "/photos/owner/meze-platter.jpg",
-  mutabel: "/photos/telegram/dish-02.jpg",
-  fattoush: "/photos/telegram/dish-03.jpg",
+  hummus: DISH("hummus"),
+  mutabel: DISH("mutabel"),
+  fattoush: DISH("fattoush"),
 
   // Cold plates
-  "mixed-cold": "/photos/owner/meze-platter.jpg",
-  "green-salad": "/photos/photo-7.jpg",
-  tabbouleh: "/photos/telegram/dish-04.jpg",
-  falafel: "/photos/telegram/dish-05.jpg",
+  "mixed-cold": DISH("mixed-cold"),
+  "green-salad": DISH("green-salad"),
+  tabbouleh: DISH("tabbouleh"),
+  falafel: DISH("falafel"),
 
   // Salads & sides
-  "shrimp-avocado": "/photos/photo-3.jpg",
+  "shrimp-avocado": "/photos/telegram/dish-11.jpg",
   "seafood-salad": "/photos/owner/seafood-salad.jpg",
-  "napa-cabbage": "/photos/telegram/dish-06.jpg",
-  "homemade-potatoes": "/photos/photo-5.jpg",
-  "french-fries": "/photos/telegram/dish-07.jpg",
+  "napa-cabbage": DISH("napa-cabbage"),
+  "homemade-potatoes": DISH("homemade-potatoes"),
+  "french-fries": DISH("french-fries"),
 
   // Soups
-  "lamb-soup": "/photos/maps/photo-61.jpg",
-  "lentil-soup": "/photos/telegram/dish-08.jpg",
+  "lamb-soup": DISH("lamb-soup"),
+  "lentil-soup": DISH("lentil-soup"),
   "borscht-half": "/photos/owner/borscht.jpg",
   "borscht-full": "/photos/owner/borscht.jpg",
-  "couscous-chicken": "/photos/maps/photo-68.jpg",
+  "couscous-chicken": DISH("couscous-chicken"),
 
   // Georgian mains
-  "steamed-salmon": "/photos/maps/photo-52.jpg",
+  "steamed-salmon": "/photos/photo-19.jpg",
   "kazan-kebab": "/photos/owner/kazan-chicken.jpg",
   "stuffed-pepper-1": "/photos/owner/stuffed-pepper.jpg",
   "stuffed-pepper-2": "/photos/owner/stuffed-pepper.jpg",
@@ -41,44 +46,42 @@ export const ORDER_ITEM_IMAGES: Record<string, string> = {
   "vareniki-cottage": "/photos/owner/pelmeni.jpg",
 
   // Slavic snacks
-  "piroshki-potato": "/photos/telegram/dish-09.jpg",
-  "piroshki-chicken": "/photos/telegram/dish-10.jpg",
-  "piroshki-cheese": "/photos/telegram/dish-11.jpg",
-  "falafel-wrap": "/photos/owner/shawarma.jpg",
-  "zucchini-rolls": "/photos/telegram/dish-12.jpg",
+  "piroshki-potato": DISH("piroshki-potato"),
+  "piroshki-chicken": DISH("piroshki-chicken"),
+  "piroshki-cheese": DISH("piroshki-cheese"),
+  "falafel-wrap": DISH("falafel-wrap"),
+  "zucchini-rolls": DISH("zucchini-rolls"),
 
   // Mandi & kabsa
-  "mandi-chicken-thigh": "/photos/maps/photo-73.jpg",
-  "mandi-half-chicken": "/photos/maps/photo-91.jpg",
-  "mandi-lamb": "/photos/maps/photo-110.jpg",
+  "mandi-chicken-thigh": DISH("mandi-chicken-thigh"),
+  "mandi-half-chicken": DISH("mandi-half-chicken"),
+  "mandi-lamb": DISH("mandi-lamb"),
 
   // Arabic grill
-  "mix-grill-l": "/photos/photo-2.jpg",
-  "mix-grill-xl": "/photos/photo-2.jpg",
+  "mix-grill-l": "/photos/photo-14.jpg",
+  "mix-grill-xl": "/photos/photo-14.jpg",
   "lamb-shashlik": "/photos/photo-2.jpg",
-  "eggplant-kebab": "/photos/maps/photo-74.jpg",
+  "eggplant-kebab": DISH("eggplant-kebab"),
 
   // Kebabs & grill
-  "chicken-shish": "/photos/owner/chicken-kebab.jpg",
-  "lamb-kebab": "/photos/maps/photo-47.jpg",
-  "chicken-kebab": "/photos/owner/chicken-kebab.jpg",
-  "chicken-wings": "/photos/maps/photo-45.jpg",
+  "chicken-shish": "/photos/photo-3.jpg",
+  "lamb-kebab": DISH("lamb-kebab"),
+  "chicken-kebab": DISH("chicken-kebab"),
+  "chicken-wings": DISH("chicken-wings"),
 
   // Wraps & bites
-  "gyros-wrap": "/photos/owner/shawarma.jpg",
-  "placinta-apple": "/photos/owner/khachapuri.jpg",
-  "placinta-potato": "/photos/telegram/dish-13.jpg",
-  "placinta-mozzarella": "/photos/owner/khachapuri.jpg",
-  "placinta-cottage": "/photos/telegram/dish-14.jpg",
+  "gyros-wrap": DISH("gyros-wrap"),
+  "placinta-apple": DISH("placinta-apple"),
+  "placinta-potato": DISH("placinta-potato"),
+  "placinta-mozzarella": DISH("placinta-mozzarella"),
+  "placinta-cottage": DISH("placinta-cottage"),
 
   // Drinks
-  "karak-chai": "/photos/maps/photo-25.jpg",
-  cappuccino: "/photos/maps/photo-116.jpg",
-  espresso: "/photos/maps/photo-121.jpg",
+  "karak-chai": "/photos/photo-18.jpg",
+  cappuccino: DISH("cappuccino"),
+  espresso: DISH("espresso"),
 };
 
-export const ORDER_ITEM_IMAGE_FALLBACK = "/photos/photo-6.jpg";
-
-export function getOrderItemImage(itemId: string): string {
-  return ORDER_ITEM_IMAGES[itemId] ?? ORDER_ITEM_IMAGE_FALLBACK;
+export function getOrderItemImage(itemId: string): string | null {
+  return ORDER_ITEM_IMAGES[itemId] ?? null;
 }

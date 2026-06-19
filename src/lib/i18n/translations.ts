@@ -9,6 +9,7 @@ export const translations = {
       about: "About",
       menu: "Menu",
       findUs: "Find us",
+      order: "Order",
       reserve: "Reserve",
     },
     hero: {
@@ -81,6 +82,7 @@ export const translations = {
       about: "О нас",
       menu: "Меню",
       findUs: "Как добраться",
+      order: "Заказ",
       reserve: "Забронировать",
     },
     hero: {
@@ -153,6 +155,7 @@ export const translations = {
       about: "Giới thiệu",
       menu: "Thực đơn",
       findUs: "Chỉ đường",
+      order: "Đặt món",
       reserve: "Đặt bàn",
     },
     hero: {
@@ -225,6 +228,7 @@ export const translations = {
       about: "À propos",
       menu: "Menu",
       findUs: "Nous trouver",
+      order: "Commander",
       reserve: "Réserver",
     },
     hero: {

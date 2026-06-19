@@ -15,6 +15,7 @@ export function SiteNav() {
     { href: "/#about", label: t.nav.about, match: () => pathname === "/" },
     { href: "/#menu", label: t.nav.menu, match: () => pathname === "/" },
     { href: "/#find-us", label: t.nav.findUs, match: () => pathname === "/" },
+    { href: "/order", label: t.nav.order, match: () => pathname === "/order" },
   ] as const;
 
   return (

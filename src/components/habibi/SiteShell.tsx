@@ -12,16 +12,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isOrderPage = pathname === "/order";
 
-  if (isOrderPage) {
-    return <>{children}</>;
-  }
-
   return (
     <LanguageProvider>
       <SmoothScroll>
         <SiteNav />
         {children}
-        <MapsSection />
+        {!isOrderPage && <MapsSection />}
         <Footer />
         <CookieBanner />
       </SmoothScroll>

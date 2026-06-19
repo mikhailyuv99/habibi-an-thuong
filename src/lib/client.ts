@@ -56,6 +56,9 @@ export type ClientData = {
   faq: FaqItem[];
   private_dining_note: string | null;
   social_url: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
+  tiktok_url: string | null;
   logo_url: string | null;
   owner_provided_notes: string;
   headline: string | null;

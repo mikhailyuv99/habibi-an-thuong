@@ -10,7 +10,9 @@ const reservationMessage = encodeURIComponent(
 export const social = {
   whatsapp: `https://wa.me/${phoneDigits}?text=${reservationMessage}`,
   zalo: `https://zalo.me/${phoneDigits}`,
-  instagram: client.social_url,
+  instagram: client.instagram_url ?? client.social_url,
+  facebook: client.facebook_url,
+  tiktok: client.tiktok_url,
   phone: `tel:${phoneHref}`,
   reserve: `https://wa.me/${phoneDigits}?text=${reservationMessage}`,
 } as const;

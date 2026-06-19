@@ -413,7 +413,7 @@ export const ORDER_MENU: OrderMenuCategory[] = ORDER_MENU_RAW.map((category) => 
   ...category,
   items: category.items.map((menuItem) => ({
     ...menuItem,
-    image: getOrderItemImage(menuItem.id),
+    image: getOrderItemImage(menuItem.id) ?? "",
   })),
 }));
 
