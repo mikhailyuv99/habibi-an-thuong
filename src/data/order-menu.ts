@@ -1,10 +1,13 @@
 /** Structured menu for direct ordering — prices from printed boards (K = 1,000 VND). */
 
+import { getOrderItemImage } from "./order-menu-images";
+
 export type OrderMenuItem = {
   id: string;
   name: string;
   description?: string;
   priceVnd: number;
+  image: string;
 };
 
 export type OrderMenuCategory = {
@@ -17,7 +20,15 @@ function k(amount: number): number {
   return amount * 1000;
 }
 
-export const ORDER_MENU: OrderMenuCategory[] = [
+type OrderMenuItemInput = Omit<OrderMenuItem, "image">;
+
+type OrderMenuCategoryInput = {
+  id: string;
+  title: string;
+  items: OrderMenuItemInput[];
+};
+
+const ORDER_MENU_RAW: OrderMenuCategoryInput[] = [
   {
     id: "appetizers",
     title: "Appetizers",
@@ -397,6 +408,14 @@ export const ORDER_MENU: OrderMenuCategory[] = [
     ],
   },
 ];
+
+export const ORDER_MENU: OrderMenuCategory[] = ORDER_MENU_RAW.map((category) => ({
+  ...category,
+  items: category.items.map((menuItem) => ({
+    ...menuItem,
+    image: getOrderItemImage(menuItem.id),
+  })),
+}));
 
 export const ORDER_MENU_BY_ID = new Map(
   ORDER_MENU.flatMap((cat) => cat.items.map((item) => [item.id, item] as const)),

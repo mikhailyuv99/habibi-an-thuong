@@ -23,7 +23,7 @@
 
 .habibi-order-header__logo {
   width: auto;
-  height: 2.75rem;
+  height: 6.875rem;
   margin-inline: auto;
 }
 
@@ -201,14 +201,38 @@
   gap: 0.55rem;
 }
 
-/* —— Menu item card (stacked on mobile) —— */
+/* —— Menu item card —— */
 .habibi-order-item {
   display: grid;
-  gap: 0.5rem;
-  padding: 0.9rem 1rem;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.85rem;
   background: #f9f4e8;
   border: 1px solid rgba(74, 99, 77, 0.12);
   border-radius: 4px;
+}
+
+.habibi-order-item__media {
+  width: 5.5rem;
+  height: 5.5rem;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(74, 99, 77, 0.08);
+  border: 1px solid rgba(74, 99, 77, 0.1);
+}
+
+.habibi-order-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.habibi-order-item__content {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
 }
 
 .habibi-order-item__head {
@@ -545,7 +569,7 @@
   }
 
   .habibi-order-header__logo {
-    height: 3.25rem;
+    height: 8.125rem;
   }
 
   .habibi-order-header__tagline {
@@ -584,27 +608,5 @@
   .habibi-order-confirm {
     max-width: 40rem;
     margin-inline: auto;
-  }
-
-  .habibi-order-item {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: start;
-    column-gap: 1rem;
-  }
-
-  .habibi-order-item__head {
-    grid-column: 1;
-  }
-
-  .habibi-order-item__desc {
-    grid-column: 1;
-  }
-
-  .habibi-order-item__actions {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-    padding-top: 0;
   }
 }

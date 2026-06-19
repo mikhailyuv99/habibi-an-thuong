@@ -69,19 +69,32 @@ function MenuItemCard({
 }) {
   return (
     <article className="habibi-order-item">
-      <div className="habibi-order-item__head">
-        <h3 className="habibi-order-item__name">{item.name}</h3>
-        <p className="habibi-order-item__price">{formatOrderPriceDisplay(item.priceVnd)}</p>
-      </div>
-      {item.description && (
-        <p className="habibi-order-item__desc">{item.description}</p>
-      )}
-      <div className="habibi-order-item__actions">
-        <QuantityControl
-          quantity={quantity}
-          onIncrease={onIncrease}
-          onDecrease={onDecrease}
+      <div className="habibi-order-item__media">
+        <Image
+          src={item.image}
+          alt=""
+          width={88}
+          height={88}
+          sizes="88px"
+          className="habibi-order-item__img"
+          loading="lazy"
         />
+      </div>
+      <div className="habibi-order-item__content">
+        <div className="habibi-order-item__head">
+          <h3 className="habibi-order-item__name">{item.name}</h3>
+          <p className="habibi-order-item__price">{formatOrderPriceDisplay(item.priceVnd)}</p>
+        </div>
+        {item.description && (
+          <p className="habibi-order-item__desc">{item.description}</p>
+        )}
+        <div className="habibi-order-item__actions">
+          <QuantityControl
+            quantity={quantity}
+            onIncrease={onIncrease}
+            onDecrease={onDecrease}
+          />
+        </div>
       </div>
     </article>
   );
@@ -236,8 +249,8 @@ export function OrderPageClient() {
           <Image
             src="/brand/logo.png"
             alt="Habibi Restaurant"
-            width={120}
-            height={120}
+            width={300}
+            height={300}
             priority
             className="habibi-order-header__logo"
           />
@@ -263,8 +276,8 @@ export function OrderPageClient() {
           <Image
             src="/brand/logo.png"
             alt="Habibi Restaurant"
-            width={120}
-            height={120}
+            width={300}
+            height={300}
             priority
             className="habibi-order-header__logo"
           />
@@ -346,8 +359,8 @@ export function OrderPageClient() {
         <Image
           src="/brand/logo.png"
           alt="Habibi Restaurant"
-          width={120}
-          height={120}
+          width={300}
+          height={300}
           priority
           className="habibi-order-header__logo"
         />
