@@ -68,7 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://maps.google.com" />
         <link rel="preload" as="image" href="/brand/logo.png" />
-        <link rel="preload" as="image" href="/photos/maps/photo-22.jpg" />
+        <link rel="preload" as="image" href="/photos/owner/khinkali.jpg" />
+        <link rel="preload" as="image" href="/photos/owner/borscht.jpg" />
+        <link rel="preload" as="image" href="/photos/owner/olivier-salad.jpg" />
         <LocalBusinessJsonLd />
       </head>
       <body className="antialiased" style={{ background: "#fbf3e1" }}>

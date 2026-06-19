@@ -3,13 +3,13 @@
 import { useMemo } from "react";
 import { client } from "@/lib/client";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { AboutMediaRow, getAboutMediaRowPhotos } from "./AboutMediaRows";
+import { AboutCarouselPreload, AboutMediaRow, getAboutMediaRows } from "./AboutMediaRows";
 import { ReviewCarouselRows } from "./ReviewCarouselRows";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function AboutSection() {
   const { t } = useLanguage();
-  const mediaRows = useMemo(() => getAboutMediaRowPhotos(), []);
+  const mediaRows = useMemo(() => getAboutMediaRows(), []);
 
   return (
     <section className="habibi-about" id="about" aria-labelledby="about-heading">
@@ -24,6 +24,8 @@ export function AboutSection() {
           </header>
         </ScrollReveal>
 
+        <AboutCarouselPreload />
+
         <div className="habibi-about-story">
           <ScrollReveal variant="left">
             <div className="habibi-about-story__text">
@@ -31,7 +33,7 @@ export function AboutSection() {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={80}>
-            <AboutMediaRow direction="ltr" photos={mediaRows.row1} priority />
+            <AboutMediaRow direction="ltr" items={mediaRows[0].items} priority />
           </ScrollReveal>
 
           <ScrollReveal variant="right">
@@ -40,7 +42,7 @@ export function AboutSection() {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={80}>
-            <AboutMediaRow direction="rtl" photos={mediaRows.row2} />
+            <AboutMediaRow direction="rtl" items={mediaRows[1].items} />
           </ScrollReveal>
 
           <ScrollReveal variant="left">
@@ -49,7 +51,7 @@ export function AboutSection() {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={80}>
-            <AboutMediaRow direction="ltr" photos={mediaRows.row3} />
+            <AboutMediaRow direction="ltr" items={mediaRows[2].items} />
           </ScrollReveal>
 
           <ScrollReveal>

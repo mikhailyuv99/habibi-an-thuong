@@ -449,16 +449,29 @@ body {
 
 /* About carousels — uniform tile size on all breakpoints */
 .habibi-about-story .habibi-media-row__item {
+  position: relative;
   width: 14.5rem;
   height: 10.75rem;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.habibi-about-story .habibi-media-row__item img {
+.habibi-about-story .habibi-media-row__cell {
+  flex-shrink: 0;
+}
+
+.habibi-about-story .habibi-media-row__item img,
+.habibi-about-story .habibi-media-row__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Carousels must stay visible to the browser so images load reliably */
+.habibi-scroll-reveal:has(.habibi-media-row) {
+  opacity: 1;
+  transform: none;
 }
 
 @media (max-width: 767px) {
